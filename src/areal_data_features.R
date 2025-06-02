@@ -1,19 +1,21 @@
-######################################
-###### Areal Feature Extraction ######
-######################################
-# Input: 
-#   T, S, L - ppp objects (Tumor, Stromal, Lymphocyte)
-# Output: 
-#   Data frames with scalar areal features per cell type
+####################################################
+############ Areal Feature Extraction ##############
+####################################################
+
+####################### Input ############################
+### T, S, L - ppp objects (Tumor, Stromal, Lymphocyte) ###
+
+####################### Output #############################
+### Data frames with scalar areal features per cell type ###
 
 ###### Moran's I ######
 moran_I <- function(T, S, L) {
   nb <- cell2nb(20, 20, type = "queen")
   weight <- nb2mat(nb, style = "B", zero.policy = TRUE)
   
-  mi_t <- Moran.I(as.vector(T), weight)
-  mi_s <- Moran.I(as.vector(S), weight)
-  mi_l <- Moran.I(as.vector(L), weight)
+  mi_t <- Moran.I(as.vector(T), weight)$observed
+  mi_s <- Moran.I(as.vector(S), weight)$observed
+  mi_l <- Moran.I(as.vector(L), weight)$observed
   
   data.frame("MI.T" = mi_t, "MI.S" = mi_s, "MI.I" = mi_l)
 }
@@ -38,9 +40,9 @@ lee_L <- function(T, S, L) {
   nb <- cell2nb(20, 20, type = "queen")
   lw <- nb2listw(nb, style = "W")
   
-  l_ti <- lee.test(as.vector(T), as.vector(L), listw = lw)$estimate[1]
-  l_ts <- lee.test(as.vector(T), as.vector(S), listw = lw)$estimate[1]
-  l_is <- lee.test(as.vector(L), as.vector(S), listw = lw)$estimate[1]
+  l_ti <- as.numeric(lee.test(as.vector(T), as.vector(L), listw = lw)$estimate[1])
+  l_ts <- as.numeric(lee.test(as.vector(T), as.vector(S), listw = lw)$estimate[1])
+  l_is <- as.numeric(lee.test(as.vector(L), as.vector(S), listw = lw)$estimate[1])
   
   data.frame("Lee.TI" = l_ti, "Lee.TS" = l_ts, "Lee.IS" = l_is)
 }
@@ -66,13 +68,34 @@ bhattacharyya <- function(T, S, L) {
   data.frame("BC.TS" = bc_ts, "BC.TI" = bc_ti, "BC.IS" = bc_is)
 }
 
+
+###### Clark-Evans ######
+clark_evans <- function(point.pattern){
+  
+  ### Spatial autocorrelation
+  point.pattern.tumor <- point.pattern[which(point.pattern$type == "tumor"), ]
+  point.pattern.stromal <- point.pattern[which(point.pattern$type == "stroma"), ]
+  point.pattern.immune <- point.pattern[which(point.pattern$type == "lymphocyte"), ]
+  
+  areal.tumor.ppp <- ppp(x = point.pattern.tumor$x, y = point.pattern.tumor$y, xlim = wd, ylim = wd)
+  areal.stromal.ppp <- ppp(x = point.pattern.stromal$x, y = point.pattern.stromal$y, xlim = wd, ylim = wd)
+  areal.immune.ppp <- ppp(x = point.pattern.immune$x, y = point.pattern.immune$y, xlim = wd, ylim = wd)
+  
+  CE.T <- clarkevans(areal.tumor.ppp, correction = "Donnelly")
+  CE.S <- clarkevans(areal.stromal.ppp, correction = "Donnelly")
+  CE.I <- clarkevans(areal.immune.ppp, correction = "Donnelly")
+  
+  clark.evans.df <- data.frame("CE.T" = CE.T, "CE.S" = CE.S, "CE.I" = CE.I)
+  
+  return(clark.evans.df)
+}
+
+
 ###### Placeholders for future features ######
-# clark_evans <- function(...) { ... }
 # quadrat_statistic <- function(...) { ... }
 # join_count <- function(...) { ... }
 # jaccard_index <- function(...) { ... }
 # dice_sorensen_index <- function(...) { ... }
-
 
 
 
