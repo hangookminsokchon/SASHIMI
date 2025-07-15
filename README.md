@@ -24,17 +24,18 @@ The SASHIMI framework consists of three feature modules:
 - **Areal** *(currently available)*
 - **Topological**
 
-Updates
+### Updates
 June 3, 2024: Initial release with Areal feature module implementation. Functional and Topological feature modules scheduled for mid-to-late July release.
+
 July 15, 2024:
 
 - Areal features module completed (additional features may be added in future releases)
 - Functional features module implemented
 - File naming updates for improved consistency:
 
-*areal_data_features → areal_feature*
-*functional_data_features → functional_features*
-*compute_features → feature_computation* 
+-- *areal_data_features → areal_feature*
+-- *functional_data_features → functional_features*
+-- *compute_features → feature_computation* 
 
 
 Additional functional features planned for future releases
