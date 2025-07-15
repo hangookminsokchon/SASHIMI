@@ -33,9 +33,12 @@ July 15, 2024:
 - Functional features module implemented
 - File naming updates for improved consistency:
 
--- *areal_data_features → areal_feature*
--- *functional_data_features → functional_features*
--- *compute_features → feature_computation* 
+ *areal_data_features → areal_feature*
+ 
+ *functional_data_features → functional_features*
+ 
+ *compute_features → feature_computation* 
+
 
 
 Additional functional features planned for future releases
