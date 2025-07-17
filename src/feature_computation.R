@@ -1,4 +1,3 @@
-
 # Description: Compute a suite of grid-based spatial statistics for Tumor, Stromal,
 #   and Immune point patterns starting from raw coordinate+type data.
 # Dependencies: spatstat, spdep, dispRity, dplyr
@@ -90,5 +89,6 @@ calculate_areal_feature <- function(raw_df) {
   cbind(df_moran, df_geary, df_lee, df_mh, df_bc, df_ce,
         df_qc, df_jacc, df_dice, df_cos)
 }
+#-------------------------------------------------------------------------------
 
 
