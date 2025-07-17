@@ -5,12 +5,14 @@ SASHIMI (Spatial Analysis for Segmented Histopathology Images using Machine Inte
 **SASHIMI** is a computational framework designed to extract quantitative, statistically robust summaries of cell-cell interactions within the Tumor Microenvironment (TME). Leveraging spatial statistics and point pattern analysis, SASHIMI translates raw cell coordinate data from histopathological images into meaningful scalar descriptors that characterize tissue organization and cellular architecture.
 
 ## Dependencies
-This program requires the use of following R packages. 
+This framework requires the use of following R packages. 
 
 ```{r}
-library(spatstat)
-library(dispRity)
-library(spdep)
+# R version 4.5.1
+library(spatstat)  #(version >= 3.3)
+library(dispRity)  #(version >= 1.9)
+library(spdep)     #(version >= 1.3)
+library(dplyr)     #(version >= 1.1.4)
 ```
 
 ## Web page
@@ -20,7 +22,7 @@ library(spdep)
 
 The SASHIMI framework consists of three feature modules:
 
-- **Functional**
+- **Functional** *(currently available)*
 - **Areal** *(currently available)*
 - **Topological**
 
@@ -53,8 +55,14 @@ Additional functional features planned for future releases
 
 **Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
 
+
 #### Functional Data  
-**To be added.**
+**Input**: `n × 3` CSV file with columns:
+- `x`, `y`: coordinates  
+- `z`: cell type  
+(*Max file size: 4MB. Example available in `/example` folder.*)
+
+**Output**: '500 x 2' DataFrame of functional data, which can be ploted using **plot()** function.
 
 #### Topological Data  
 **To be added.**
