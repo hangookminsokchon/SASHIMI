@@ -1,0 +1,8 @@
+Depends:
+    R (>= 4.1.0)
+
+Imports:
+    spatstat (>= 3.3),
+    dispRity (>= 1.9),
+    spdep (>= 1.3),
+    dplyr (>= 1.1.4)
