@@ -4,6 +4,20 @@
 # Dependencies: spatstat, spdep, dispRity, dplyr
 #
 # All functions use a fixed 20×20 grid and Queen‐type adjacency.
+#
+# List of areal feature indexes
+# Autocorrelation indexes
+# Moran's I
+# Morisita-Horn
+# Lee's L
+# Geary's C
+# Bhattacharyya Coefficient
+# Clark-Evans aggregation index
+# Joint Count Statistics(VMR, Chi-square)
+# Jaccard index
+# Dice-Sorensen index
+# Cosine similiarity 
+
 #-------------------------------------------------------------------------------
 
 library(spatstat)        # ppp, quadratcount, superimpose, clarkevans
@@ -348,6 +362,8 @@ cosine_similarity <- function(T, S, L) {
     Cosine.IS = calc_cosine(vL, vS)
   )
 }
+
+
 
 
 
