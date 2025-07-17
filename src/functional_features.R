@@ -36,7 +36,7 @@
 library(spatstat)    # core spatial functions
 
 #-------------------------------------------------------------------------------
-#' Single Type Ripley's K-function
+#' Single-type Ripley's K-function
 #' 
 #' Compute single-type K-function for each point pattern.
 #' 
@@ -142,7 +142,7 @@ Kcross_local <- function(T, S, L, r = NULL) {
 }
 
 #-------------------------------------------------------------------------------
-#' Empty-space F-Function
+#' Empty space F-Function
 #' 
 #' Compute F-function for each point pattern.
 #' 
@@ -158,7 +158,7 @@ Fsingle <- function(T, S, L, r = NULL) {
 }
 
 #-------------------------------------------------------------------------------
-#' Nearest Neighbor Function (G)
+#' Nearest Neighbor G-Function
 #' 
 #' Compute G-function for each point pattern.
 #' 
@@ -276,7 +276,7 @@ pcf <- function(T, S, L, r = NULL) {
 }
 
 #-------------------------------------------------------------------------------
-#' Multi-type Pair Correlation Function
+#' Cross-type Pair Correlation Function
 #' 
 #' Compute cross-type pcf between each pair.
 #' 
@@ -294,7 +294,7 @@ pcfcross <- function(T, S, L, r = NULL) {
 }
 
 #-------------------------------------------------------------------------------
-#' Multitype I Function
+#' Cross-type I Function
 #' 
 #' Compute multitype I-function for each cross-type.
 #' 
@@ -312,7 +312,7 @@ Icross <- function(T, S, L, r = NULL) {
 }
 
 #-------------------------------------------------------------------------------
-#' Marked Connection Function
+#' Marked Connection Function (cross-type)
 #' 
 #' Compute markconnect for each cross-type.
 #' 
