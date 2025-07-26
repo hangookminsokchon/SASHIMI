@@ -43,7 +43,7 @@ library(spatstat)    # core spatial functions
 #' @param T,S,L `ppp` objects.
 #' @param r Optional numeric vector of distances at which to evaluate.
 #' @return A list with `Ksingle.T`, `Ksingle.S`, `Ksingle.I` (class `fv`).
-Ksingle <- function(T, S, L, r = NULL) {
+K_single <- function(T, S, L, r = NULL) {
   list(
     single.K.T = Kest(T, r = r, correction = "Ripley"),
     single.K.S = Kest(S, r = r, correction = "Ripley"),
@@ -59,7 +59,7 @@ Ksingle <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Numeric vector of distances.
 #' @return A list with `localK.T`, `localK.S`, `localK.I` (class `fv` or matrix).
-Klocal <- function(T, S, L, r = NULL) {
+K_local <- function(T, S, L, r = NULL) {
   list(
     local.K.T = localK(T, r = r),
     local.K.S = localK(S, r = r),
@@ -75,7 +75,7 @@ Klocal <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Kscaled.T`, `Kscaled.S`, `Kscaled.I` (class `fv`).
-Kscaled <- function(T, S, L, r = NULL) {
+K_scaled <- function(T, S, L, r = NULL) {
   scale_fun <- function(X) {
     K <- Kest(X, r = r, correction = "Ripley")
     K$scaled <- with(K, iso / (pi * r^2))
@@ -97,7 +97,7 @@ Kscaled <- function(T, S, L, r = NULL) {
 #' @param r Numeric vector of distances.
 #' @param sector Numeric vector length 2: start and end angles in radians.
 #' @return A list with `Ksector.T`, `Ksector.S`, `Ksector.I` (class `fv`).
-Ksector <- function(T, S, L, r = NULL, sector = c(0, pi/2)) {
+K_sector <- function(T, S, L, r = NULL, sector = c(0, pi/2)) {
   list(
     sector.K.T = Ksector(T, r = r, sector = sector),
     sector.K.S = Ksector(S, r = r, sector = sector),
@@ -113,7 +113,7 @@ Ksector <- function(T, S, L, r = NULL, sector = c(0, pi/2)) {
 #' @param T,S,L `ppp` objects; marks will be set internally.
 #' @param r Optional distances.
 #' @return A list with `Kcross.TS`, `Kcross.TI`, `Kcross.IS` (class `fv`).
-Kcross <- function(T, S, L, r = NULL) {
+K_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L" # impose marks to point pattern
   all_ppp <- superimpose(T, S, L, W = T$window) # merges the point pattern into one
   list(
@@ -131,7 +131,7 @@ Kcross <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Numeric vector of distances.
 #' @return A list with `localKcross.TS`, `localKcross.TI`, `localKcross.IS`.
-Kcross_local <- function(T, S, L, r = NULL) {
+K_cross_local <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
   list(
@@ -149,7 +149,7 @@ Kcross_local <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Fsingle.T`, `Fsingle.S`, `Fsingle.I` (class `fv`).
-Fsingle <- function(T, S, L, r = NULL) {
+F_single <- function(T, S, L, r = NULL) {
   list(
     single.F.T = Fest(T, r = r),
     single.F.S = Fest(S, r = r),
@@ -165,7 +165,7 @@ Fsingle <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Gsingle.T`, `Gsingle.S`, `Gsingle.I` (class `fv`).
-Gsingle <- function(T, S, L, r = NULL) {
+G_single <- function(T, S, L, r = NULL) {
   list(
     single.G.T = Gest(T, r = r),
     single.G.S = Gest(S, r = r),
@@ -181,7 +181,7 @@ Gsingle <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Gcross.TS`, `Gcross.TI`, `Gcross.IS`.
-Gcross <- function(T, S, L, r = NULL) {
+G_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
   list(
@@ -199,7 +199,7 @@ Gcross <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Jsingle.T`, `Jsingle.S`, `Jsingle.I` (class `fv`).
-Jsingle <- function(T, S, L, r = NULL) {
+J_single <- function(T, S, L, r = NULL) {
   list(
     single.J.T = Jest(T, r = r),
     single.J.S = Jest(S, r = r),
@@ -215,7 +215,7 @@ Jsingle <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Jcross.TS`, `Jcross.TI`, `Jcross.IS`.
-Jcross <- function(T, S, L, r = NULL) {
+J_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
   list(
@@ -233,7 +233,7 @@ Jcross <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Lsingle.T`, `Lsingle.S`, `Lsingle.I` (class `fv`).
-Lsingle <- function(T, S, L, r = NULL) {
+L_single <- function(T, S, L, r = NULL) {
   list(
     single.L.T = Lest(T, r = r),
     single.L.S = Lest(S, r = r),
@@ -249,7 +249,7 @@ Lsingle <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Lcross.TS`, `Lcross.TI`, `Lcross.IS`.
-Lcross <- function(T, S, L, r = NULL) {
+L_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
   list(
@@ -267,7 +267,7 @@ Lcross <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `pcf.T`, `pcf.S`, `pcf.I` (class `fv`).
-pcf <- function(T, S, L, r = NULL) {
+PairCorrelation <- function(T, S, L, r = NULL) {
   list(
     single.pcf.T = pcf(T, r = r),
     single.pcf.S = pcf(S, r = r),
@@ -283,7 +283,7 @@ pcf <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `pcfcross.TS`, `pcfcross.TI`, `pcfcross.IS`.
-pcfcross <- function(T, S, L, r = NULL) {
+PairCorrelation_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
   list(
@@ -301,7 +301,7 @@ pcfcross <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Optional distances.
 #' @return A list with `Icross.TS`, `Icross.TI`, `Icross.IS`.
-Icross <- function(T, S, L, r = NULL) {
+I_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
   list(
@@ -319,7 +319,7 @@ Icross <- function(T, S, L, r = NULL) {
 #' @param T,S,L `ppp` objects.
 #' @param r Numeric vector of distances.
 #' @return A list with `markconnect.TS`, `markconnect.TI`, `markconnect.IS`.
-markconnect <- function(T, S, L, r = NULL) {
+MarkConnect_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
   list(
