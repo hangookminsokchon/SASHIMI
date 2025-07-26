@@ -32,13 +32,13 @@ df <- normalize_coords(df) # normalize the point pattern as max(x), max(y) = 1
 df <- prepare_point_patterns(df) # convert the csv data into a ppp object
 
 # Single-type K-function: compute & plot the functional features
-K_function <- Ksingle(df$Tumor, df$Stromal, df$Immune)
+K_function <- K_single(df$Tumor, df$Stromal, df$Immune)
 plot(K_function$single.K.T)
 plot(K_function$single.K.S)
 plot(K_function$single.K.I)
 
 # Single-type J-function: compute & plot the functional features
-J_function <- Jsingle(df$Tumor, df$Stromal, df$Immune)
+J_function <- J_single(df$Tumor, df$Stromal, df$Immune)
 plot(J_function$single.J.T)
 plot(J_function$single.J.S)
 plot(J_function$single.J.I)
