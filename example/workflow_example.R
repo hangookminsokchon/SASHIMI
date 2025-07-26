@@ -10,7 +10,7 @@ names(df) <- c("x", "y", "type")
 #' Ex)
 #' Plot the raw df image
 #' 
-plot(x = df$x, y = df$y, col = df$type, cex = 0.3, pch = 16)
+plot(x = df$x, y = df$y, col = factor(df$type), cex = 0.3, pch = 16)
 
 # ------------------------------------------------------------------------------
 #' Ex)
