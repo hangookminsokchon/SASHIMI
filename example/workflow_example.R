@@ -45,3 +45,20 @@ plot(J_function$single.J.I)
 
 # Cross-type functions, pair correlation function, etc...
 ##  Other functional features work the same way
+
+# ------------------------------------------------------------------------------
+#' Ex)
+#' Download the functional and areal features of 'df' image in .csv format
+#' functional features return a list of functional data in 500 x 5 tabular data, whereas areal data returns a 1-row tabular data
+
+# Download the K-fucntion feature data
+write.csv(K_function$single.K.T, file = 'appropriate output file path for single.K.T')
+write.csv(K_function$single.K.S, file = 'appropriate output file path for single.K.S')
+write.csv(K_function$single.K.I, file = 'appropriate output file path for single.K.I')
+
+# Download the areal feature data
+write.csv(areal_features, file = 'appropriate output file path for areal features') # Areal features are downloaded entirely 
+
+
+
+
