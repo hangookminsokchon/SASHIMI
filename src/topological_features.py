@@ -1,26 +1,58 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import gudhi
-from scipy.stats import gaussian_kde
-from matplotlib.colors import ListedColormap
-from scipy import ndimage
-from scipy.ndimage import distance_transform_bf
+"""
+Description: Compute a suite of topological features 
 
+Dependencies: Refer ReadMe.
+
+List of topological features
+- Cubical Complex
+    - Tumor-Immune, Tumor-Stromal, Immune-Stroaml pairs
+
+- Witness Complex
+    - Tumor-Immune, Tumor-Stromal, Immune-Stroaml pairs
+"""
+#-------------------------------------------------------------------------------
+import pandas as pd                             # Dataframe manipulation
+import numpy as np                              # Matrix operations
+import gudhi                                    # Topological feature computation ()
+import matplotlib.pyplot as plt                 # Data visualization
+from matplotlib.colors import ListedColormap    # =
+from scipy.stats import gaussian_kde            # Gaussian KDE for type assign
+from scipy import ndimage                       # 
+from scipy.ndimage import distance_transform_bf # 
+#-------------------------------------------------------------------------------
 
 class TopoFeature:
-    
+    # Constructor
     def __init__(self):
+        # Cell types
         self.ordered_celltype = ['immune', 'stromal', 'tumor']
+        # Colors by cell types
         self.ordered_colortype = ['black', 'red', 'green']
+        # Cell type pairs
         self.cell_pairs = [
             ('tumor', 'immune'),
             ('tumor', 'stromal'),
             ('immune', 'stromal')
         ]
         
-    
+    # Read in raw data, assigns the cell types
     def read_img(self, img_dir):
+        """
+        Read the raw image and convert them into labeled point pattern data
+        
+        Parameters:
+        -----------
+        img_dir : str
+            Path of input image
+            
+        Returns:
+        -----------
+        points : np.array
+            Point pattern data of input image
+        labels : np.array
+            Point pattern data's corresponding cell type labels
+        """
+        
         df = pd.read_csv(img_dir)
         df = df.rename(columns = {'class' : 'cell_type'})
         
@@ -51,6 +83,21 @@ class TopoFeature:
     
     # Gaussian KDE type classifier for cubical complex based on SEDT3
     def compute_kde(self, points, labels):
+        """
+        Assign cell types to empty grid based on densities computed by Gaussian KDE
+        
+        Parameters:
+        -----------
+        points : np.array
+            Point pattern data of input image
+        labels : np.array
+            Point pattern data's corresponding cell type labels
+            
+        Returns:
+        --------
+        class_map : np.array
+            Grid with assinged cell types
+        """
         label_to_index = {lbl: i for i, lbl in enumerate(self.ordered_celltype)}
         n_labels = len(self.ordered_celltype)
         
@@ -89,6 +136,13 @@ class TopoFeature:
             Class map from KDE
         cell_type1, cell_type2 : str
             Cell types to compare
+            
+         Returns:
+        --------
+        cubical_complex : np.array
+            
+        diag : list
+            Persistence diagram from GUDHI
         """
         
         # Map cell types to indices
@@ -136,6 +190,12 @@ class TopoFeature:
             Cell type labels
         cell_type1, cell_type2 : str
             Cell types to compare (landmarks and witnesses)
+
+        Returns:
+        --------
+         diag : list
+            Persistence diagram from GUDHI
+        
         """
         
         points_type1 = points[labels == cell_type1]
@@ -188,7 +248,8 @@ class TopoFeature:
             
         Returns:
         --------
-        dict : Dictionary of statistics
+        stats: dict
+            Dictionary of statistics
         """
         
         # Handle empty diagram
@@ -281,7 +342,8 @@ class TopoFeature:
             
         Returns:
         --------
-        pd.DataFrame : 1-row DataFrame with all features
+        df_features : pd.DataFrame
+            1-row DataFrame with all features
         """
         
         # Read image
@@ -356,7 +418,8 @@ class TopoFeature:
             
         Returns:
         --------
-        pd.DataFrame : 1-row DataFrame with features separated by dimension
+        df_features : pd.DataFrame
+            1-row DataFrame with features separated by dimension
         """
         
         # Read image
