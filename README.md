@@ -2,7 +2,7 @@
 SASHIMI (Spatial Analysis for Segmented Histopathology Images using Machine Intelligence) is a tool for capturing spatial cell-cell interactions in histopathology image using spatial summary statistics.
 
 ## Description
-**SASHIMI** is a computational framework designed to extract quantitative, statistically robust summaries of cell-cell interactions within the Tumor Microenvironment (TME). Leveraging spatial statistics and point pattern analysis, SASHIMI translates raw cell coordinate data from histopathological images into meaningful scalar descriptors that characterize tissue organization and cellular architecture.
+**SASHIMI** is a computational framework designed to extract quantitative, statistically robust summaries of cell-cell interactions within the Tumor Microenvironment (TME). Leveraging spatial statistics and point pattern analysis, SASHIMI translates raw cell coordinate data from histopathological images into meaningful scalar and functional descriptors that characterize tissue organization and cellular architecture.
 
 ## Dependencies
 This framework requires the use of following software dependencies. 
@@ -41,7 +41,7 @@ The SASHIMI framework consists of three feature modules:
 
 - **Functional** *(currently available)*
 - **Areal** *(currently available)*
-- **Topological**
+- **Topological** *(currently available)*
 
 ### Updates
 June 3, 2024: Initial release with Areal feature module implementation. Functional and Topological feature modules scheduled for mid-to-late July release.
