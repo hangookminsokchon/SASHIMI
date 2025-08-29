@@ -44,9 +44,12 @@ The SASHIMI framework consists of three feature modules:
 - **Topological** *(currently available)*
 
 ### Updates
-June 3, 2024: Initial release with Areal feature module implementation. Functional and Topological feature modules scheduled for mid-to-late July release.
+June 3, 2025: 
 
-July 15, 2024:
+Initial release with Areal feature module implementation. Functional and Topological feature modules scheduled for mid-to-late July release.
+
+
+July 15, 2025:
 
 - Areal features module completed (additional features may be added in future releases)
 - Functional features module implemented
@@ -58,9 +61,23 @@ July 15, 2024:
  
  *compute_features → feature_computation* 
 
+Aug 29, 2025:
 
+Updated new feature: topolofical_features.py
+Since new feature requires Python and the corresponding packages, package dependencies and versions are also updates on both README.md
+and DESCRIPTION.txt. For computational efficiency, 'exampleB' image was used to compute the topological features, which is different from the exampleA image
+that was used to compute areal, functional data. Current version only supports scalar topological features, however functional version will be added in the future.
 
-Additional functional features planned for future releases
+Updated file directory:
+Now the repo is consist of 3 folders
+/src: source codes, example workflow codes
+/data: example data, point pattern data images and raw .csv files
+/example: output data from those corresponding inputs from /data
+
+Reminder: For all 3 features, column name specification is fixed now
+(ex: x, y, Z_cell for exampleA, x, y, class for exampleB), so are the cell type names.
+Flexible implementation for col names and cell-type names, I'm planning to add more helper functions.
+
 
 ### Web Interface Specifications
 
@@ -79,8 +96,14 @@ Additional functional features planned for future releases
 - `z`: cell type  
 (*Max file size: 4MB. Example available in `/example` folder.*)
 
-**Output**: '500 x 2' DataFrame of functional data, which can be ploted using **plot()** function.
+**Output**: '500 x 3' DataFrame of functional data, which can be ploted using **plot()** function.
+
 
 #### Topological Data  
-**To be added.**
+**Input**: `n × 3` CSV file with columns:
+- `x`, `y`: coordinates  
+- `z`: cell type  
+(*Max file size: 4MB. Example available in `/example` folder.*)
+
+**Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
 
