@@ -65,33 +65,38 @@ July 15, 2025:
 ⸻
 
 Aug 29, 2025
-	•	New Feature: Added topological_features.py.
-	•	Dependencies: Updated README.md and DESCRIPTION.txt to include required Python packages and their versions.
-	•	Computation: For efficiency, the exampleB image is now used for computing topological features (different from exampleA, which is still used for areal and functional features).
-	•	Current Scope: Only scalar topological features are supported at present. A functional version will be added in a future release.
+New Feature: Added topological_features.py.
+- Dependencies: Updated README.md and DESCRIPTION.txt to include required Python packages and their versions.
+- Computation: For efficiency, the exampleB image is now used for computing topological features (different from exampleA, which is still used for areal and functional features).
+- Current Scope: Only scalar topological features are supported at present. A functional version will be added in a future release.
 
 Repository Structure
 The repository now consists of three main folders:
-	•	/src – source code and example workflow scripts
-	•	/data – example data, including point pattern images and raw .csv files
-	•	/example – output data generated from /data inputs
+
+/src – source code and example workflow scripts
+
+/data – example data, including point pattern images and raw .csv files
+
+/example – output data generated from /data inputs
 
 Reminders:
-	•	Column name specifications are standardized across all features.
-	•	Example A: x, y, Z_cell
-	•	Example B: x, y, class
-	•	Cell type names are also fixed.
-	•	A more flexible implementation for column and cell-type names is planned, including additional helper functions.
+Column name specifications are standardized across all features.
+- Example A: x, y, Z_cell
+- Example B: x, y, class
+- Cell type names are also fixed.
+  
+A more flexible implementation for column and cell-type names is planned, including additional helper functions.
 
 ⸻
 
 Sep 14, 2025
-	•	Bug Fixes:
-	•	Fixed KeyError in read_img (line 59, topological_features.py).
-	•	Fixed FutureError in compute_cubical_complex_pair (lines 148–149, topological_features.py).
-	•	Input Standardization:
-	•	All feature types (functional, areal, topological) now use a unified input format: three columns (x, y, type) where type ∈ {'immune', 'stromal', 'tumor'}.
-	•	The column name does not strictly have to be "type"; custom naming is supported.
+Bug Fixes:
+- Fixed KeyError in read_img (line 59, topological_features.py).
+- Fixed FutureError in compute_cubical_complex_pair (lines 148–149, topological_features.py).
+
+Input Standardization:
+- All feature types (functional, areal, topological) now use a unified input format: three columns (x, y, type) where type ∈ {'immune', 'stromal', 'tumor'}.
+- The column name does not strictly have to be "type"; custom naming is supported.
  
 ### Web Interface Specifications
 
