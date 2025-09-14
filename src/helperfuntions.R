@@ -29,7 +29,7 @@ normalize_coords <- function(df) {
 #' @examples
 #' df <- data.frame(x=runif(50), y=runif(50), type=sample(c("tumor","stroma","lymphocyte"),50,T))
 #' prepare_quadrat_counts(df)
-prepare_quadrat_counts <- function(df) {
+prepare_quadrat_counts <- function(df, typelist = NA) {
   win <- owin(c(0,1), c(0,1))
   pp_all <- ppp(df$x, df$y, window=win)
   
@@ -47,7 +47,7 @@ prepare_quadrat_counts <- function(df) {
 #' @return A named list of three `ppp` objects for tumor, stroma, lymphocyte.
 #' @examples
 #' prepare_point_patterns(df)
-prepare_point_patterns <- function(df) {
+prepare_point_patterns <- function(df, typelist = NA) {
   win <- owin(c(0,1), c(0,1))
   
   list(
