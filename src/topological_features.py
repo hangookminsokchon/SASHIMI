@@ -58,27 +58,18 @@ class TopoFeature:
         
         labels = df['cell_type'].copy()
         
-        for i in range(0, len(labels)):
-            if labels[i] == 1:
-                labels[i] = 'immune'
-                
-            elif labels[i] == 2:
-                labels[i] = 'stromal'
-
-            elif labels[i] == 3:
-                labels[i] = 'tumor'
-                
-            else:
-                labels[i] = 'other'
-            
-        points = np.array(df)
-        points = points[:, 0:2]
-        points = np.asarray(points, dtype = np.float64)
+        # Create mapping dictionary
+        label_mapping = {1: 'immune', 2: 'stromal', 3: 'tumor'}
+        
+        df['cell_type'] = df['cell_type'].astype('object') 
     
-        labels = np.asarray(labels, dtype = str)
-        labels = labels.T
+        # Apply mapping
+        new_labels = df['cell_type'].map(label_mapping).fillna('other').values
     
-        return [points, labels]       
+        points = df.iloc[:, 0:2].values.astype(np.float64)
+        new_labels = new_labels.astype(str)
+    
+        return [points, new_labels]       
     
     
     # Gaussian KDE type classifier for cubical complex based on SEDT3
@@ -154,8 +145,8 @@ class TopoFeature:
         class_grid = pd.DataFrame(class_map)
         
         # Create binary grids for each cell type
-        grid_type1 = (class_grid == idx1).astype(np.integer)
-        grid_type2 = (class_grid == idx2).astype(np.integer)
+        grid_type1 = (class_grid == idx1).astype(np.int32)
+        grid_type2 = (class_grid == idx2).astype(np.int32)
         
         # Compute distance transforms
         dist_type1 = distance_transform_bf(grid_type1.values, metric='euclidean').astype(np.float64)
