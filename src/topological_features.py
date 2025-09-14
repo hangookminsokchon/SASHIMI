@@ -52,24 +52,13 @@ class TopoFeature:
         labels : np.array
             Point pattern data's corresponding cell type labels
         """
-        
         df = pd.read_csv(img_dir)
         df.columns = ['x', 'y', 'type']
-        
-        labels = df['type'].copy()
-        
-        # Create mapping dictionary
-        label_mapping = {1: 'immune', 2: 'stromal', 3: 'tumor'}
-        
-        df['type'] = df['type'].astype('object') 
-    
-        # Apply mapping
-        new_labels = df['type'].map(label_mapping).fillna('other').values
     
         points = df.iloc[:, 0:2].values.astype(np.float64)
-        new_labels = new_labels.astype(str)
+        labels = df['type'].astype(str)
     
-        return [points, new_labels]       
+        return [points, labels]       
     
     
     # Gaussian KDE type classifier for cubical complex based on SEDT3
