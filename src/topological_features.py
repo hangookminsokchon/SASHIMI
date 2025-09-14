@@ -54,7 +54,7 @@ class TopoFeature:
         """
         
         df = pd.read_csv(img_dir)
-        df = df.rename(columns = {'class' : 'type'})
+        df.columns = ['x', 'y', 'type']
         
         labels = df['type'].copy()
         
