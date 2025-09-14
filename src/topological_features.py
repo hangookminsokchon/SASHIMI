@@ -54,17 +54,17 @@ class TopoFeature:
         """
         
         df = pd.read_csv(img_dir)
-        df = df.rename(columns = {'class' : 'cell_type'})
+        df = df.rename(columns = {'class' : 'type'})
         
-        labels = df['cell_type'].copy()
+        labels = df['type'].copy()
         
         # Create mapping dictionary
         label_mapping = {1: 'immune', 2: 'stromal', 3: 'tumor'}
         
-        df['cell_type'] = df['cell_type'].astype('object') 
+        df['type'] = df['type'].astype('object') 
     
         # Apply mapping
-        new_labels = df['cell_type'].map(label_mapping).fillna('other').values
+        new_labels = df['type'].map(label_mapping).fillna('other').values
     
         points = df.iloc[:, 0:2].values.astype(np.float64)
         new_labels = new_labels.astype(str)
