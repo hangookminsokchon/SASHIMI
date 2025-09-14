@@ -48,6 +48,7 @@ June 3, 2025:
 
 Initial release with Areal feature module implementation. Functional and Topological feature modules scheduled for mid-to-late July release.
 
+⸻
 
 July 15, 2025:
 
@@ -60,31 +61,44 @@ July 15, 2025:
  *functional_data_features → functional_features*
  
  *compute_features → feature_computation* 
+ 
+⸻
 
-Aug 29, 2025:
+Aug 29, 2025
+	•	New Feature: Added topological_features.py.
+	•	Dependencies: Updated README.md and DESCRIPTION.txt to include required Python packages and their versions.
+	•	Computation: For efficiency, the exampleB image is now used for computing topological features (different from exampleA, which is still used for areal and functional features).
+	•	Current Scope: Only scalar topological features are supported at present. A functional version will be added in a future release.
 
-Updated new feature: topolofical_features.py
-Since new feature requires Python and the corresponding packages, package dependencies and versions are also updates on both README.md
-and DESCRIPTION.txt. For computational efficiency, 'exampleB' image was used to compute the topological features, which is different from the exampleA image
-that was used to compute areal, functional data. Current version only supports scalar topological features, however functional version will be added in the future.
+Repository Structure
+The repository now consists of three main folders:
+	•	/src – source code and example workflow scripts
+	•	/data – example data, including point pattern images and raw .csv files
+	•	/example – output data generated from /data inputs
 
-Updated file directory:
-Now the repo is consist of 3 folders
-/src: source codes, example workflow codes
-/data: example data, point pattern data images and raw .csv files
-/example: output data from those corresponding inputs from /data
+Reminders:
+	•	Column name specifications are standardized across all features.
+	•	Example A: x, y, Z_cell
+	•	Example B: x, y, class
+	•	Cell type names are also fixed.
+	•	A more flexible implementation for column and cell-type names is planned, including additional helper functions.
 
-Reminder: For all 3 features, column name specification is fixed now
-(ex: x, y, Z_cell for exampleA, x, y, class for exampleB), so are the cell type names.
-Flexible implementation for col names and cell-type names, I'm planning to add more helper functions.
+⸻
 
-
+Sep 14, 2025
+	•	Bug Fixes:
+	•	Fixed KeyError in read_img (line 59, topological_features.py).
+	•	Fixed FutureError in compute_cubical_complex_pair (lines 148–149, topological_features.py).
+	•	Input Standardization:
+	•	All feature types (functional, areal, topological) now use a unified input format: three columns (x, y, type) where type ∈ {'immune', 'stromal', 'tumor'}.
+	•	The column name does not strictly have to be "type"; custom naming is supported.
+ 
 ### Web Interface Specifications
 
 #### Areal Data  
 **Input**: `n × 3` CSV file with columns:
 - `x`, `y`: coordinates  
-- `z`: cell type  
+- `type`: cell type  
 (*Max file size: 4MB. Example available in `/example` folder.*)
 
 **Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
@@ -93,7 +107,7 @@ Flexible implementation for col names and cell-type names, I'm planning to add m
 #### Functional Data  
 **Input**: `n × 3` CSV file with columns:
 - `x`, `y`: coordinates  
-- `z`: cell type  
+- `type`: cell type  
 (*Max file size: 4MB. Example available in `/example` folder.*)
 
 **Output**: '500 x 3' DataFrame of functional data, which can be ploted using **plot()** function.
@@ -102,7 +116,7 @@ Flexible implementation for col names and cell-type names, I'm planning to add m
 #### Topological Data  
 **Input**: `n × 3` CSV file with columns:
 - `x`, `y`: coordinates  
-- `z`: cell type  
+- `type`: cell type  
 (*Max file size: 4MB. Example available in `/example` folder.*)
 
 **Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
