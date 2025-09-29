@@ -95,34 +95,33 @@ Bug Fixes:
 - Fixed FutureError in compute_cubical_complex_pair (lines 148–149, topological_features.py).
 
 Input Standardization:
-- All feature types (functional, areal, topological) now use a unified input format: three columns (x, y, type) where type ∈ {'immune', 'stromal', 'tumor'}.
+- All feature types (functional, areal, topological) now use a unified input format: three columns (x, y, type) where type = {'immune', 'stromal', 'tumor', 'other'}.
 - The column name does not strictly have to be "type"; custom naming is supported.
- 
-### Web Interface Specifications
+
+
+## Web Interface Specifications
 
 #### Areal Data  
 **Input**: `n × 3` CSV file with columns:
 - `x`, `y`: coordinates  
 - `type`: cell type  
-(*Max file size: 4MB. Example available in `/example` folder.*)
+(*Max file size: 4MB. Example available in `/data` folder.*)
 
 **Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
-
 
 #### Functional Data  
 **Input**: `n × 3` CSV file with columns:
 - `x`, `y`: coordinates  
 - `type`: cell type  
-(*Max file size: 4MB. Example available in `/example` folder.*)
+(*Max file size: 4MB. Example available in `/data` folder.*)
 
 **Output**: '500 x 3' DataFrame of functional data, which can be ploted using **plot()** function.
-
 
 #### Topological Data  
 **Input**: `n × 3` CSV file with columns:
 - `x`, `y`: coordinates  
 - `type`: cell type  
-(*Max file size: 4MB. Example available in `/example` folder.*)
+(*Max file size: 4MB. Example available in `/data` folder.*)
 
 **Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
 
