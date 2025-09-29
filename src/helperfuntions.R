@@ -22,25 +22,6 @@ normalize_coords <- function(df) {
 }
 
 #-------------------------------------------------------------------------------
-#' Prepare Quadrat Counts for Each Cell Type
-#'
-#' @param df A data.frame with columns `x`,`y`,`type` (factor or character: "tumor","stroma","lymphocyte").
-#' @return A named list of three numeric vectors (length 400) of 20×20 quadrat counts.
-#' @examples
-#' df <- data.frame(x=runif(50), y=runif(50), type=sample(c("tumor","stroma","lymphocyte"),50,T))
-#' prepare_quadrat_counts(df)
-prepare_quadrat_counts <- function(df, typelist = NA) {
-  win <- owin(c(0,1), c(0,1))
-  pp_all <- ppp(df$x, df$y, window=win)
-  
-  list(
-    Tumor   = as.vector(quadratcount(pp_all[df$type=="tumor"],   nx=20, ny=20)),
-    Stromal = as.vector(quadratcount(pp_all[df$type=="stroma"],  nx=20, ny=20)),
-    Immune  = as.vector(quadratcount(pp_all[df$type=="lymphocyte"], nx=20, ny=20))
-  )
-}
-
-#-------------------------------------------------------------------------------
 #' Prepare ppp Objects for Each Cell Type
 #'
 #' @param df A data.frame with columns `x`,`y`,`type`.
