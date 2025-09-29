@@ -7,6 +7,51 @@ library(spatstat)        # ppp, owin, quadratcount, superimpose, clarkevans
 library(spdep)           # cell2nb, nb2mat, nb2listw, Moran.I, lee.test, geary.test
 library(dispRity)        # bhatt.coeff
 library(dplyr)           # data manipulation
+#-------------------------------------------------------------------------------
+#' Standardize Cell Type Names
+#'
+#' @param df A data.frame with a column `type` containing cell type labels.
+#' @return The same data.frame with standardized `type` values: 
+#'         'tumor', 'stroma', or 'lymphocyte'.
+#' @details Performs case-insensitive matching to handle variations like:
+#'   - Stromal, Stroma, stroma, stromal → 'stroma'
+#'   - Tumor, tumor cell, Tumor cell → 'tumor'  
+#'   - lymphocyte, immune, immune cell → 'lymphocyte'
+#' @examples
+#' df <- data.frame(x=1:5, y=1:5, type=c("Tumor", "stroma", "Immune cell", "TUMOR", "Stromal"))
+#' standardize_cell_types(df)
+standardize_cell_types <- function(df) {
+  # Create a working copy to avoid modifying original
+  df$type <- as.character(df$type)
+  
+  # Case-insensitive pattern matching with grepl
+  # Order matters: check most specific patterns first
+  
+  # Stromal variations
+  stroma_pattern <- grepl("stroma", df$type, ignore.case = TRUE)
+  df$type[stroma_pattern] <- "stroma"
+  
+  # Tumor variations  
+  tumor_pattern <- grepl("tumor", df$type, ignore.case = TRUE)
+  df$type[tumor_pattern] <- "tumor"
+  
+  # Immune/lymphocyte variations
+  immune_pattern <- grepl("lymphocyte|immune", df$type, ignore.case = TRUE)
+  df$type[immune_pattern] <- "lymphocyte"
+  
+  # Check for unmatched types
+  valid_types <- c("tumor", "stroma", "lymphocyte")
+  unmatched <- !df$type %in% valid_types
+  
+  if (any(unmatched)) {
+    warning(sprintf("Found %d cells with unrecognized types: %s\nThese will be excluded from analysis.",
+                    sum(unmatched),
+                    paste(unique(df$type[unmatched]), collapse=", ")))
+    df <- df[!unmatched, ]
+  }
+  
+  return(df)
+}
 
 #-------------------------------------------------------------------------------
 #' Normalize Coordinates to [0,1]
@@ -49,7 +94,7 @@ prepare_point_patterns <- function(df, typelist = NA) {
 calculate_areal_feature <- function(raw_df) {
   # normalize if outside [0,1]
   raw_df <- normalize_coords(raw_df)
-  raw_df$type <- factor(raw_df$type, levels=c("tumor","stroma","lymphocyte"))
+  standardize_cell_types(raw_df)
   
   # prepare data structures
   ppps <- prepare_point_patterns(raw_df)
