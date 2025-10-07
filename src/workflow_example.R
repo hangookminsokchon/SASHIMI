@@ -15,7 +15,7 @@ names(df_B) <- c("x", "y", "type")
 p_A <- ggplot(df_A, aes(x = x, y = y, color = factor(type))) +
   geom_point(size = 0.1, alpha = 0.3) +
   coord_fixed() +
-  theme_void() +  # Removes everything
+  theme_void() + 
   theme(
     legend.position = "bottom",
     legend.title = element_text(face = "bold", size = 10),
