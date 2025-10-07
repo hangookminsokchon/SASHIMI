@@ -94,7 +94,7 @@ prepare_point_patterns <- function(df, typelist = NA) {
 calculate_areal_feature <- function(raw_df) {
   # normalize if outside [0,1]
   raw_df <- normalize_coords(raw_df)
-  standardize_cell_types(raw_df)
+  raw_df <- standardize_cell_types(raw_df)
   
   # prepare data structures
   ppps <- prepare_point_patterns(raw_df)
