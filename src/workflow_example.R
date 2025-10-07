@@ -2,7 +2,6 @@
 # ------------------------------------------------------------------------------
 # Import the raw data(point pattern data): same file as data/"example_point_patternA.csv
 #                                                       data/"example_point_patternB.csv
-
 df_A <- read.csv("example_point_patternA.csv")
 df_B <- read.csv("example_point_patternB.csv")
 
@@ -13,8 +12,33 @@ names(df_B) <- c("x", "y", "type")
 #' Ex)
 #' Plot the raw df images
 #' 
-plot(x = df_A$x, y = df_A$y, col = factor(df_A$type), cex = 0.3, pch = 16, asp = 1)
-plot(x = df_B$x, y = df_B$y, col = factor(df_B$type), cex = 0.3, pch = 16, asp = 1)
+p_A <- ggplot(df_A, aes(x = x, y = y, color = factor(type))) +
+  geom_point(size = 0.1, alpha = 0.3) +
+  coord_fixed() +
+  theme_void() +  # Removes everything
+  theme(
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold", size = 10),
+    legend.text = element_text(size = 10)
+  ) +
+  labs(color = "Cell Type") +
+  scale_color_brewer(palette = "Set2")
+
+plot(p_A) # Plot example A image
+
+p_B <- ggplot(df_B, aes(x = x, y = y, color = factor(type))) +
+  geom_point(size = 0.1, alpha = 0.3) +
+  coord_fixed() +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold", size = 10),
+    legend.text = element_text(size = 10)
+  ) +
+  labs(color = "Cell Type") +
+  scale_color_brewer(palette = "Set2")
+
+plot(p_B) # Plot example B image
 # ------------------------------------------------------------------------------
 #' Ex)
 #' Compute the areal features of 'df' image
