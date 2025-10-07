@@ -13,8 +13,8 @@ names(df_B) <- c("x", "y", "type")
 #' Ex)
 #' Plot the raw df images
 #' 
-plot(x = df_A$x, y = df_A$y, col = factor(df_A$type), cex = 0.3, pch = 16)
-plot(x = df_B$x, y = df_B$y, col = factor(df_B$type), cex = 0.3, pch = 16)
+plot(x = df_A$x, y = df_A$y, col = factor(df_A$type), cex = 0.3, pch = 16, asp = 1)
+plot(x = df_B$x, y = df_B$y, col = factor(df_B$type), cex = 0.3, pch = 16, asp = 1)
 # ------------------------------------------------------------------------------
 #' Ex)
 #' Compute the areal features of 'df' image
