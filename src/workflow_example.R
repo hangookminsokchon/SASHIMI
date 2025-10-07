@@ -13,54 +13,10 @@ names(df_B) <- c("x", "y", "type")
 #' Plot the raw df images
 #' 
 # Example image A
-layout(matrix(c(1,2), nrow = 1), widths = c(0.75, 0.25))
-par(mar = c(0, 0, 0, 0), bg = "white")
-cell_types <- factor(df_A$type)
-n_types <- nlevels(cell_types)
-
-plot(x = df_A$x, y = df_A$y,
-     col = cell_types,
-     cex = 0.3, pch = 16, asp = 1,
-     ann = FALSE, axes = FALSE)
-
-# Legend
-par(mar = c(0, 0, 0, 0))
-plot.new()
-legend("center", 
-       legend = levels(cell_types),
-       col = unique(cell_types),
-       pch = 16, 
-       bty = "n", 
-       title = "Cell Type",
-       cex = 1.0,
-       y.intersp = 1.2) 
-
+visual_point_pattern(df_A)
 
 # Example image B
-layout(matrix(c(1,2), nrow = 1), widths = c(0.75, 0.25))
-par(mar = c(0, 0, 0, 0), bg = "white")
-cell_types <- factor(df_B$type)
-n_types <- nlevels(cell_types)
-
-plot(x = df_B$x, y = df_B$y,
-     col = cell_types,
-     cex = 0.3, pch = 16, asp = 1,
-     ann = FALSE, axes = FALSE)
-
-# Legend
-par(mar = c(0, 0, 0, 0))
-plot.new()
-legend("center", 
-       legend = levels(cell_types),
-       col = unique(cell_types),
-       pch = 16, 
-       bty = "n", 
-       title = "Cell Type",
-       cex = 1.0,
-       y.intersp = 1.2) 
-
-#' Which are implemented into src/helperfunctions.R/visual_point_pattern()
-
+visual_point_pattern(df_B)
 # ------------------------------------------------------------------------------
 #' Ex)
 #' Compute the areal features of 'df' image
