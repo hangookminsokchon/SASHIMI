@@ -82,7 +82,103 @@ prepare_point_patterns <- function(df, typelist = NA) {
     Immune  = ppp(df$x[df$type=="lymphocyte"], df$y[df$type=="lymphocyte"], window=win)
   )
 }
-
+#-------------------------------------------------------------------------------
+#' Visualize Point Pattern Data
+#'
+#' Creates a spatial point pattern visualization with points colored by cell type
+#' and a legend on the right side.
+#'
+#' @param df A data.frame with columns `x`, `y`, `type` where:
+#'   - `x`: x-coordinates of points
+#'   - `y`: y-coordinates of points
+#'   - `type`: cell type labels (factor or character)
+#' @param point_size Numeric, size of points (default = 0.3)
+#' @param output_file Optional character string for output PNG filename. 
+#'   If NULL, plots to current device.
+#' @param width Numeric, width of output image in inches (default = 8)
+#' @param height Numeric, height of output image in inches (default = 6)
+#' @param dpi Numeric, resolution for PNG output (default = 300)
+#' 
+#' @return Invisibly returns the factor levels of cell types.
+#' 
+#' @examples
+#' # Plot to screen
+#' visual_point_pattern(df_A)
+#' 
+#' # Save to file
+#' visual_point_pattern(df_A, output_file = "tissue_A.png")
+#' 
+#' # Custom point size
+#' visual_point_pattern(df_B, point_size = 0.5)
+#'
+#' @export
+visual_point_pattern <- function(df, 
+                                  point_size = 0.3,
+                                  output_file = NULL,
+                                  width = 8,
+                                  height = 6,
+                                  dpi = 300) {
+  
+  # Input validation
+  if (!is.data.frame(df)) {
+    stop("Input must be a data.frame")
+  }
+  
+  required_cols <- c("x", "y", "type")
+  if (!all(required_cols %in% names(df))) {
+    stop("Data frame must contain columns: x, y, type")
+  }
+  
+  if (nrow(df) == 0) {
+    stop("Data frame is empty")
+  }
+  
+  # Convert type to factor
+  cell_types <- factor(df$type)
+  n_types <- nlevels(cell_types)
+  
+  # Open PNG device if output file specified
+  if (!is.null(output_file)) {
+    png(output_file, width = width, height = height, units = "in", res = dpi)
+  }
+  
+  # Set up layout: left for points (75%), right for legend (25%)
+  layout(matrix(c(1, 2), nrow = 1), widths = c(0.75, 0.25))
+  
+  # Plot points
+  par(mar = c(0, 0, 0, 0), bg = "white")
+  plot(x = df$x, y = df$y,
+       col = cell_types,  # Automatically assigns the color for each cell type
+       cex = point_size, 
+       pch = 16, 
+       asp = 1,
+       ann = FALSE, 
+       axes = FALSE)
+  
+  # Plot legend
+  par(mar = c(0, 0, 0, 0))
+  plot.new()
+  legend("center", 
+         legend = levels(cell_types),
+         col = 1:n_types,  # Basic color palette
+         pch = 16, 
+         bty = "n", 
+         title = "Cell Type",
+         cex = 1.0,
+         y.intersp = 1.2)
+  
+  # Close device if file output
+  if (!is.null(output_file)) {
+    dev.off()
+    message(paste("Plot saved to:", output_file))
+  }
+  
+  # Reset layout
+  layout(1)
+  
+  # Return cell type levels invisibly
+  invisible(levels(cell_types))
+}
 #-------------------------------------------------------------------------------
 #' Master Pipeline: Calculate Areal Features
 #'
