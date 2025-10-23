@@ -39,8 +39,8 @@ import gudhi                                     #(version >= (3.11)
 
 The SASHIMI framework consists of three feature modules:
 
-- **Functional** *(currently available)*
-- **Areal** *(currently available)*
+- **Spatial Summary Statistics** *(currently available)*
+- **Areal/Autocorrelation/Similarity Indices** *(currently available)*
 - **Topological** *(currently available)*
 
 ### Updates
