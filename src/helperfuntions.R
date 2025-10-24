@@ -180,6 +180,49 @@ visual_point_pattern <- function(df,
   invisible(levels(cell_types))
 }
 #-------------------------------------------------------------------------------
+#' Plot spatial features for two datasets
+#' 
+#' Compare spatial summary statistics between two point pattern datasets
+#' by plotting selected features side by side.
+#' 
+#' @param df_A First dataset (list with Tumor, Stromal, Immune ppp objects)
+#' @param df_B Second dataset (list with Tumor, Stromal, Immune ppp objects)
+#' @param feature_type Character string specifying which feature to compute.
+#'   Options: "K_single", "K_cross", "K_local", "K_scaled", "K_sector",
+#'           "F_single", "G_single", "G_cross", "J_single", "J_cross",
+#'           "L_single", "L_cross", "PairCorrelation", "PairCorrelation_cross",
+#'           "I_cross", "MarkConnect_cross", "K_cross_local"
+#' @param r Optional numeric vector of distances
+#' @param ... Additional parameters for specific functions (e.g., sector for K_sector)
+#' @return Invisible NULL (plots are generated as side effect)
+plot_spatial_features <- function(df_A, df_B, feature_type, r = NULL) {
+  
+  source("functional_features.R")
+  
+  # Get the appropriate function
+  feature_func <- get(feature_type)
+  
+  # Compute features for both datasets
+  features_A <- feature_func(df_A$Tumor, df_A$Stromal, df_A$Immune, r = NULL)
+  features_B <- feature_func(df_B$Tumor, df_B$Stromal, df_B$Immune, r = NULL)
+  
+  # Set up plotting layout - 2 rows (A and B), 3 columns (for each cell type or pair)
+  par(mfrow = c(2, 3))
+  
+  # Plot each feature
+  for (i in 1:length(features_A)) {
+    plot(features_A[[i]], main = paste("Dataset A:", names(features_A)[i]))
+  }
+  for (i in 1:length(features_B)) {
+    plot(features_B[[i]], main = paste("Dataset B:", names(features_B)[i]))
+  }
+  
+  # Reset plotting parameters
+  par(mfrow = c(1, 1))
+  
+  invisible(NULL)
+}
+#-------------------------------------------------------------------------------
 #' Master Pipeline: Calculate Areal Features
 #'
 #' @param raw_df A data.frame with numeric `x`,`y` and factor/character `type` ("tumor","stroma","lymphocyte").
