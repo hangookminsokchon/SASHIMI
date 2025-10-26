@@ -6,9 +6,11 @@ SASHIMI (Spatial Analysis for Segmented Histopathology Images using Machine Inte
 
 ### Key Features
 
-- **Spatial Summary Statistics**: Capture local and global spatial patterns of cellular distributions
-- **Areal/Autocorrelation/Similarity Indices**: Quantify spatial dependencies and clustering behaviors
-- **Topological Data Analysis**: Extract persistent homological features representing tissue architecture
+- **Spatial Summary Statistics**: Spatial summary statistics are functions that analyze the spatial characteristics of points based on their locations and relationships. These functions characterize properties such as clustering, regularity, and inter-type spatial relationships.
+
+- **Areal Data Indices**: This representation enables quantification of spatial structure through statistics that assess cell-type aggregation, dispersion, and compositional similarity across tissue regions.
+
+- **Topological Features**: Topology, a branch of mathematics concerned with the qualitative properties of geometric structures, forms the basis of topological data analysis (TDA). It characterizes spatial patterns through geometric features such as the number of connected components and loops. 
 
 
 ## System Requirements
@@ -42,8 +44,6 @@ import gudhi                                     #(version >= (3.11)
 
 
 ## Input/Output Specifications
-
-
 ### Standardized Input Format
 
 All feature modules accept a unified CSV format with the following structure:
@@ -59,16 +59,17 @@ All feature modules accept a unified CSV format with the following structure:
 - Maximum size: 4MB
 
 ### Output Specifications
+All types of computed features are downloadable in .csv format, directly from the web.
 
 #### Areal Data  
 - **Format**: 1 × m DataFrame
-- **Content**: Areal/Autocorrelation/Similarity indicies in scalar values.
-- **Example metrics**: Moran's I, Geary's C, Cosine similarity
+- **Content**: Autocorrelation/Similarity indicies in scalar values.
+- **Example metrics**: Moran's I, Geary's C, Cosine similarity, etc...
   
 #### Functional Data  
 - **Format**: 500 × 3 DataFrame
-- **Content**: Functional curves representing spatial relationships
-- **Example metrics**: functional data of K-function, Pair correlation function
+- **Content**: Functional data representing spatial functions, computed at 500 bin width points.
+- **Example metrics**: K-function, Pair correlation function, G-fucntion, etc...
 
 #### Topological Data  
 - **Format**: 1 × m DataFrame
@@ -79,23 +80,26 @@ All feature modules accept a unified CSV format with the following structure:
 
 ```
 SASHIMI/
-├── src/                      # Source code and computation modules
-│   ├── areal_features.R
-│   ├── functional_features.R
-│   ├── helperfunctions.R
-│   ├── topological_features.py
-│   ├── workflow_example.R
-│   └── workflow_example_topological.ipynb
-├── data/                     # Example input datasets
-|   ├── example_imageA.png
-|   ├── example_imageB.png
-│   ├── example_point_patternA.csv         
-│   └── example_point_patternB.csv         
-├── example/                  # Example outputs
-|   ├── output_example_areal.csv
-|   ├── output_exampleA_functional_K
-|   ├── output_exampleB_topological1.csv
-│   └── output_exampleB_topological2.csv
+├── src/                        # Source code and computation modules
+│   ├── areal_features.R           # Computes a suite of Areal Data Indices
+│   ├── functional_features.R      # Computes a suite of Spatial Summary Statistics
+│   ├── helperfunctions.R          # Helper functions for image batch normalization & cell_type regularization
+│   ├── topological_features.py    # Computes Topological Features
+│   ├── workflow_example.R                 # Data pipeline example of Area Data Indices/Spatial Summary Statistics
+│   └── workflow_example_topological.ipynb # Data pipeline example of Topological Features
+|
+├── data/                       # Example input datasets
+|   ├── example_imageA.png        # .png image of example A point pattern data
+|   ├── example_imageB.png        # .png image of example B point pattern data
+│   ├── example_point_patternA.csv  #  .csv input data of example A     
+│   └── example_point_patternB.csv  #  .csv input data of example B      
+├── example/                    # Example outputs
+|
+|   ├── output_example_areal.csv     # Example output of Areal Data Indices, computed from example A
+|   ├── output_exampleA_functional_K # Example output of Spatial Summary Statistic(K-function), computed from example A
+|   ├── output_exampleB_topological1.csv # Example output of Topological Feature, computed from example B
+│   └── output_exampleB_topological2.csv # Example output of Topological Feature, computed from example B, by dimension
+|
 ├── README.MD
 ├── LICENSE
 └── DESCRIPTION.txt
