@@ -49,11 +49,11 @@ plot_spatial_features(df_A, df_B, feature_type = "K_single")
 # List of available functional features:
 # K-function family:                      feature_type=:
 #   • Single-type K-function               - "K_single"
-#     - Neighborhood K-function            - "K_local" 
+#     - Neighborhood K-function            - "K_local"       -Computationally inefficient, might take 10+ mins-
 #     - Locally scaled K-function          - "K_scaled"
 #     - Directional K-function             - "K_sector"
 #   • Cross-type K-function                - "K_cross"
-#     - Local Cross-type K-function        - "K_cross_local"
+#     - Local Cross-type K-function        - "K_cross_local" -Computationally inefficient, might take 10+ mins-
 # 
 # G-function family:
 #   • Single-type G-function               - "G_single"
@@ -72,7 +72,7 @@ plot_spatial_features(df_A, df_B, feature_type = "K_single")
 #   • Multitype pair correlation function  - "PairCorrelation_cross"
 # 
 # Other functions:
-#   • Marked Connection Function           - "MarkConnect_cross"
+#   • Marked Connection Function           - "MarkConnect_cross"  -Computationally inefficient, might take 10+ mins-
 #   • Multitype I-function                 - "I_cross"
 
 ## Other functional features can be plotted using plot_spatial_features() 
