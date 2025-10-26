@@ -75,6 +75,8 @@ normalize_coords <- function(df) {
 #' prepare_point_patterns(df)
 prepare_point_patterns <- function(df, typelist = NA) {
   win <- owin(c(0,1), c(0,1))
+
+  df <- standardize_cell_types(df)
   
   list(
     Tumor   = ppp(df$x[df$type=="tumor"],    df$y[df$type=="tumor"],    window=win),
@@ -196,6 +198,8 @@ visual_point_pattern <- function(df,
 #' @param ... Additional parameters for specific functions (e.g., sector for K_sector)
 #' @return Invisible NULL (plots are generated as side effect)
 plot_spatial_features <- function(df_A, df_B, feature_type, r = NULL) {
+  # Reset plot setting
+  dev.off()
 
   # Source objects(functions) from src/functional_features.R
   # if doesn't work, use absolute path instead
@@ -236,7 +240,6 @@ plot_spatial_features <- function(df_A, df_B, feature_type, r = NULL) {
 calculate_areal_feature <- function(raw_df) {
   # normalize if outside [0,1]
   raw_df <- normalize_coords(raw_df)
-  raw_df <- standardize_cell_types(raw_df)
   
   # prepare data structures
   ppps <- prepare_point_patterns(raw_df)
