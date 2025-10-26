@@ -44,6 +44,8 @@ df_A <- prepare_point_patterns(df_A) # convert the csv data into a ppp object
 df_B <- prepare_point_patterns(df_B)
 
 # Single-type K-function: compute & plot the functional features
+# plot_spatial_features() function generates a single visualization that includes all 6 functional graphs computed from df_A and df_B
+# by changing the parameter 'feature_type=', the function computes different spatial summary statistics(functional) among the list below
 plot_spatial_features(df_A, df_B, feature_type = "K_single")
 
 # List of available functional features:
@@ -83,12 +85,23 @@ plot_spatial_features(df_A, df_B, feature_type = "K_single")
 # ------------------------------------------------------------------------------
 #' Ex)
 #' Download the functional and areal features of 'df' image in .csv format
-#' functional features return a list of functional data in 500 x 5 tabular data, whereas areal data returns a 1-row tabular data
+#' functional features return a list of functional data in 500 x n tabular data, whereas areal data returns a 1-row tabular data
 
 # Download the K-fucntion feature data
-write.csv(K_function$single.K.T, file = 'appropriate output file path for single.K.T')
-write.csv(K_function$single.K.S, file = 'appropriate output file path for single.K.S')
-write.csv(K_function$single.K.I, file = 'appropriate output file path for single.K.I')
+# The same function introduced above, plot_spatial_features() also stores computed spatial summary statistics
+# enabling direct feature download by accessing stored data.
+extracted_features <- plot_spatial_features(df_A, df_B, feature_type = "K_single")
+
+# Computed features from df_A
+write.csv(extracted_features$dataset_A$single.K.T, file = 'appropriate output file path for areal features')
+write.csv(extracted_features$dataset_A$single.K.S, file = 'appropriate output file path for areal features')
+write.csv(extracted_features$dataset_A$single.K.L, file = 'appropriate output file path for areal features')
+
+# Computed features from df_B
+write.csv(extracted_features$dataset_B$single.K.T, file = 'appropriate output file path for areal features')
+write.csv(extracted_features$dataset_B$single.K.S, file = 'appropriate output file path for areal features')
+write.csv(extracted_features$dataset_B$single.K.L, file = 'appropriate output file path for areal features')
+
 
 # Download the areal feature data
 write.csv(areal_features, file = 'appropriate output file path for areal features') # Areal features are downloaded entirely 
