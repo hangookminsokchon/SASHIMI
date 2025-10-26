@@ -19,7 +19,7 @@ visual_point_pattern(df_A)
 visual_point_pattern(df_B)
 # ------------------------------------------------------------------------------
 #' Ex)
-#' Compute the areal features of 'df' image
+#' Compute the areal features of 'df_A', 'df_B' images
 #' areal features return a '1 x m dataframe' with scalar values
 #' 
 areal_features_A <- calculate_areal_feature(df_A)
@@ -32,7 +32,7 @@ print(areal_features_A)        # print the result dataframe
 print(areal_features_B)    
 # ------------------------------------------------------------------------------
 #' Ex)
-#' Compute the functional features of 'df' image
+#' Compute the functional features of 'df_A', 'df_B' images
 #' functional features return a list of functional data, which can be ploted 
 #' using plot().
 
@@ -44,29 +44,41 @@ df_A <- prepare_point_patterns(df_A) # convert the csv data into a ppp object
 df_B <- prepare_point_patterns(df_B)
 
 # Single-type K-function: compute & plot the functional features
-K_function_A <- K_single(df_A$Tumor, df_A$Stromal, df_A$Immune)
-plot(K_function_A$single.K.T)
-plot(K_function_A$single.K.S)
-plot(K_function_A$single.K.I)
+plot_spatial_features(df_A, df_B, feature_type = "K_single")
 
-K_function_B <- K_single(df_B$Tumor, df_B$Stromal, df_B$Immune)
-plot(K_function_B$single.K.T)
-plot(K_function_B$single.K.S)
-plot(K_function_B$single.K.I)
+# List of available functional features:
+# K-function family:                      feature_type=:
+#   • Single-type K-function               - "K_single"
+#     - Neighborhood K-function            - "K_local" 
+#     - Locally scaled K-function          - "K_scaled"
+#     - Directional K-function             - "K_sector"
+#   • Cross-type K-function                - "K_cross"
+#     - Local Cross-type K-function        - "K_cross_local"
+# 
+# G-function family:
+#   • Single-type G-function               - "G_single"
+#   • Cross-type G-function                - "G_cross"
+# 
+# L-function family:
+#   • Single-type L-function               - "L_single"
+#   • Cross-type L-function                - "L_cross"
+# 
+# J-function family:
+#   • Single-type J-function               - "J_single"
+#   • Cross-type J-function                - "J_cross"
+# 
+# Pair correlation function family:
+#   • Pair correlation function            - "PairCorrelation"
+#   • Multitype pair correlation function  - "PairCorrelation_cross"
+# 
+# Other functions:
+#   • Marked Connection Function           - "MarkConnect_cross"
+#   • Multitype I-function                 - "I_cross"
 
-# Single-type J-function: compute & plot the functional features
-J_function_A <- J_single(df_A$Tumor, df_A$Stromal, df_A$Immune)
-plot(J_function_A$single.J.T)
-plot(J_function_A$single.J.S)
-plot(J_function_A$single.J.I)
-
-J_function_B <- J_single(df_B$Tumor, df_B$Stromal, df_B$Immune)
-plot(J_function_B$single.J.T)
-plot(J_function_B$single.J.S)
-plot(J_function_B$single.J.I)
-
-# Cross-type functions, pair correlation function, etc...
-## Other functional features work the same way
+## Other functional features can be plotted using plot_spatial_features() 
+## Ex) plot_spatial_features(df_A, df_B, feature_type = "K_cross"),
+##     plot_spatial_features(df_A, df_B, feature_type = "PairCorrelation"),
+##     etc...
 
 # ------------------------------------------------------------------------------
 #' Ex)
