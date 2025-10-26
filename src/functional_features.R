@@ -116,6 +116,8 @@ K_sector <- function(T, S, L, r = NULL, sector = c(0, pi/2)) {
 K_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L" # impose marks to point pattern
   all_ppp <- superimpose(T, S, L, W = T$window) # merges the point pattern into one
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks)) 
   list(
     cross.K.TS = Kcross(all_ppp, i = "T", j = "S", r = r),
     cross.K.TI = Kcross(all_ppp, i = "T", j = "L", r = r),
@@ -134,6 +136,8 @@ K_cross <- function(T, S, L, r = NULL) {
 K_cross_local <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks))
   list(
     cross.local.K.TS = localKcross(all_ppp, i = "T", j = "S", r = r),
     cross.local.K.TI = localKcross(all_ppp, i = "T", j = "L", r = r),
@@ -184,6 +188,8 @@ G_single <- function(T, S, L, r = NULL) {
 G_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks))
   list(
     cross.G.TS = Gcross(all_ppp, i = "T", j = "S", r = r),
     cross.G.TI = Gcross(all_ppp, i = "T", j = "L", r = r),
@@ -218,6 +224,8 @@ J_single <- function(T, S, L, r = NULL) {
 J_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks))
   list(
     cross.J.TS = Jcross(all_ppp, i = "T", j = "S", r = r),
     cross.J.TI = Jcross(all_ppp, i = "T", j = "L", r = r),
@@ -252,6 +260,8 @@ L_single <- function(T, S, L, r = NULL) {
 L_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks))
   list(
     cross.L.TS = Lcross(all_ppp, i = "T", j = "S", r = r),
     cross.L.TI = Lcross(all_ppp, i = "T", j = "L", r = r),
@@ -286,6 +296,8 @@ PairCorrelation <- function(T, S, L, r = NULL) {
 PairCorrelation_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks))
   list(
     cross.pcf.TS = pcfcross(all_ppp, i = "T", j = "S", r = r),
     cross.pcf,TI = pcfcross(all_ppp, i = "T", j = "L", r = r),
@@ -304,6 +316,8 @@ PairCorrelation_cross <- function(T, S, L, r = NULL) {
 I_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks))
   list(
     cross.I.TS = Iest(all_ppp, i = "T", j = "S", r = r),
     cross.I.TI = Iest(all_ppp, i = "T", j = "L", r = r),
@@ -322,6 +336,8 @@ I_cross <- function(T, S, L, r = NULL) {
 MarkConnect_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
   all_ppp <- superimpose(T, S, L, W = T$window)
+  all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
+                 marks = factor(all_ppp$marks))
   list(
     cross.markconnect.TS = markconnect(all_ppp, i = "T", j = "S", r = r),
     cross.markconnect.TI = markconnect(all_ppp, i = "T", j = "L", r = r),
