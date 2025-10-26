@@ -2,23 +2,28 @@
 SASHIMI (Spatial Analysis for Segmented Histopathology Images using Machine Intelligence) is a tool for capturing spatial cell-cell interactions in histopathology image using spatial summary statistics.
 
 ## Description
-**SASHIMI** is a computational framework designed to extract quantitative, statistically robust summaries of cell-cell interactions within the Tumor Microenvironment (TME). Leveraging spatial statistics and point pattern analysis, SASHIMI translates raw cell coordinate data from histopathological images into meaningful scalar and functional descriptors that characterize tissue organization and cellular architecture.
+**SASHIMI** is a computational framework designed to extract quantitative, statistically robust summaries of cell-cell interactions within the tumor tissue architecture. Leveraging spatial statistics and point pattern analysis, SASHIMI translates raw cell coordinate data from histopathological images into meaningful scalar and functional descriptors that characterize tissue organization and cellular architecture.
 
-## Dependencies
+### Key Features
+
+- **Spatial Summary Statistics**: Capture local and global spatial patterns of cellular distributions
+- **Areal/Autocorrelation/Similarity Indices**: Quantify spatial dependencies and clustering behaviors
+- **Topological Data Analysis**: Extract persistent homological features representing tissue architecture
+
+
+## System Requirements
 This framework requires the use of following software dependencies. 
 
-R packages
+R Environment (v4.5.1+)
 ```{r}
-# R version 4.5.1
 library(spatstat)  #(version >= 3.3)
 library(dispRity)  #(version >= 1.9)
 library(spdep)     #(version >= 1.3)
 library(dplyr)     #(version >= 1.1.4)
 ```
 
-Ptyhon packages
+Python Environment (v3.11+)
 ```{python}
-# Python version 3.11
 import pandas as pd                              #(version >= 2.3)
 import numpy as np                               #(version >= 2.2.0)
 
@@ -34,6 +39,70 @@ import gudhi                                     #(version >= (3.11)
 ```
 ## Web page
 ### ** To be added ** 
+
+
+## Input/Output Specifications
+
+
+### Standardized Input Format
+
+All feature modules accept a unified CSV format with the following structure:
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `x` | float | X-coordinate of cell centroid |
+| `y` | float | Y-coordinate of cell centroid |
+| `type` | string | Cell classification (`immune`, `stromal`, `tumor`, `other`) |
+
+**File Requirements:**
+- Format: CSV (comma-separated values)
+- Maximum size: 4MB
+
+### Output Specifications
+
+#### Areal Data  
+- **Format**: 1 × m DataFrame
+- **Content**: Areal/Autocorrelation/Similarity indicies in scalar values.
+- **Example metrics**: Moran's I, Geary's C, Cosine similarity
+  
+#### Functional Data  
+- **Format**: 500 × 3 DataFrame
+- **Content**: Functional curves representing spatial relationships
+- **Example metrics**: functional data of K-function, Pair correlation function
+
+#### Topological Data  
+- **Format**: 1 × m DataFrame
+- **Content**: Summary statistics of persistence diagram
+- **Example metrics**: min/max/std of Betti 0, 1 numbers
+
+## Repository Structure
+
+```
+SASHIMI/
+├── src/                      # Source code and computation modules
+│   ├── areal_features.R
+│   ├── functional_features.R
+│   ├── helperfunctions.R
+│   ├── topological_features.py
+│   ├── workflow_example.R
+│   └── workflow_example_topological.ipynb
+├── data/                     # Example input datasets
+|   ├── example_imageA.png
+|   ├── example_imageB.png
+│   ├── example_point_patternA.csv         
+│   └── example_point_patternB.csv         
+├── example/                  # Example outputs
+|   ├── output_example_areal.csv
+|   ├── output_exampleA_functional_K
+|   ├── output_exampleB_topological1.csv
+│   └── output_exampleB_topological2.csv
+├── README.MD
+├── LICENSE
+└── DESCRIPTION.txt
+```
+
+
+## DEVLOGS
 
 ## Comments for Developers
 
@@ -97,31 +166,3 @@ Bug Fixes:
 Input Standardization:
 - All feature types (functional, areal, topological) now use a unified input format: three columns (x, y, type) where type = {'immune', 'stromal', 'tumor', 'other'}.
 - The column name does not strictly have to be "type"; custom naming is supported.
-
-
-## Web Interface Specifications
-
-#### Areal Data  
-**Input**: `n × 3` CSV file with columns:
-- `x`, `y`: coordinates  
-- `type`: cell type  
-(*Max file size: 4MB. Example available in `/data` folder.*)
-
-**Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
-
-#### Functional Data  
-**Input**: `n × 3` CSV file with columns:
-- `x`, `y`: coordinates  
-- `type`: cell type  
-(*Max file size: 4MB. Example available in `/data` folder.*)
-
-**Output**: '500 x 3' DataFrame of functional data, which can be ploted using **plot()** function.
-
-#### Topological Data  
-**Input**: `n × 3` CSV file with columns:
-- `x`, `y`: coordinates  
-- `type`: cell type  
-(*Max file size: 4MB. Example available in `/data` folder.*)
-
-**Output**: `1 × m` DataFrame of scalar summary values extracted from the spatial pattern.
-
