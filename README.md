@@ -80,29 +80,33 @@ All types of computed features are downloadable in .csv format, directly from th
 
 ```
 SASHIMI/
-├── src/                        # Source code and computation modules
-│   ├── areal_features.R           # Computes a suite of Areal Data Indices
-│   ├── functional_features.R      # Computes a suite of Spatial Summary Statistics
-│   ├── helperfunctions.R          # Helper functions for image batch normalization & cell_type regularization
-│   ├── topological_features.py    # Computes Topological Features
-│   ├── workflow_example.R                 # Data pipeline example of Area Data Indices/Spatial Summary Statistics
-│   └── workflow_example_topological.ipynb # Data pipeline example of Topological Features
-|
-├── data/                       # Example input datasets
-|   ├── example_imageA.png        # .png image of example A point pattern data
-|   ├── example_imageB.png        # .png image of example B point pattern data
-│   ├── example_point_patternA.csv  #  .csv input data of example A     
-│   └── example_point_patternB.csv  #  .csv input data of example B      
-├── example/                    # Example outputs
-|
-|   ├── output_example_areal.csv     # Example output of Areal Data Indices, computed from example A
-|   ├── output_exampleA_functional_K # Example output of Spatial Summary Statistic(K-function), computed from example A
-|   ├── output_exampleB_topological1.csv # Example output of Topological Feature, computed from example B
-│   └── output_exampleB_topological2.csv # Example output of Topological Feature, computed from example B, by dimension
-|
-├── README.MD
+├── src/                            # Core computational modules
+│   ├── features/
+│   │   ├── areal.R                # Areal Data Indices computation
+│   │   ├── functional.R           # Spatial Summary Statistics
+│   │   └── topological.py         # Topological Features
+│   └── utils/
+│       └── helpers.R              # Helper functions (normalization, regularization)
+│
+├── data/                          # Input datasets
+│   ├── example_point_patternA.csv # Raw example data
+│   ├── example_point_patternB.csv
+│   ├── example_imageA.png
+│   └── example_imageB.svg         # Visualization of example data
+│    
+├── examples/                      # Usage examples and workflows
+│   ├── workflows/
+│   │   ├── 01_areal_functional_workflow.R
+│   │   └── 02_topological_workflow.ipynb
+│   └── outputs/                   # Example outputs
+|       ├── example_A_areal.csv
+|       ├── example_A_K_function.csv
+|       ├── example_B_summary.csv
+|       └── example_B_by_dimension.csv       
+│
+├── README.md
 ├── LICENSE
-└── DESCRIPTION.txt
+└── DESCRIPTION                  
 ```
 
 
