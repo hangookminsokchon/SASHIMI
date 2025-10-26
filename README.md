@@ -1,5 +1,5 @@
-# SASHIMI
-SASHIMI (Spatial Analysis for Segmented Histopathology Images using Machine Intelligence) is a tool for capturing spatial cell-cell interactions in histopathology image using spatial summary statistics.
+# SASHIMI: Spatial Analysis for Segmented Histopathology Images using Machine Intelligence
+SASHIMI is a tool for capturing spatial cell-cell interactions in histopathology image using spatial summary statistics.
 
 ## Description
 **SASHIMI** is a web-based framework developed on R and Python for the extraction, vi-
@@ -108,8 +108,8 @@ SASHIMI/
 │   └── outputs/                   # Example outputs
 |       ├── example_A_areal.csv
 |       ├── example_A_K_function.csv
-|       ├── example_B_summary.csv
-|       └── example_B_by_dimension.csv       
+|       ├── example_B_topological.csv
+|       └── example_B_topological_by_dimension.csv       
 │
 ├── README.md
 ├── LICENSE
