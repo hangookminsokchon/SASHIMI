@@ -200,8 +200,8 @@ visual_point_pattern <- function(df,
 plot_spatial_features <- function(df_A, df_B, feature_type, r = NULL) {
   # Source objects(functions) from src/functional_features.R
   # if doesn't work, use absolute path instead
-  # ex) source("C:/Users/YourName/Documents/SASHIMI/src/functional_features.R")
-  source("src/functional_features.R")
+  # ex) source("C:/Users/YourName/Documents/SASHIMI/src/features/functional.R")
+  source("src/features/functional.R")
   
   # Get the appropriate function
   feature_func <- get(feature_type)
