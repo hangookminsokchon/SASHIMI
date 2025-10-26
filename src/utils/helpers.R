@@ -223,6 +223,12 @@ plot_spatial_features <- function(df_A, df_B, feature_type, r = NULL) {
   
   # Reset plotting parameters
   par(mfrow = c(1, 1))
+
+  # Store computed features
+  return(list(
+    dataset_A = features_A,
+    dataset_B = features_B
+  ))
   
   invisible(NULL)
 }
