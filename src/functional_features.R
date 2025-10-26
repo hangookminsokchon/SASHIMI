@@ -300,7 +300,7 @@ PairCorrelation_cross <- function(T, S, L, r = NULL) {
                  marks = factor(all_ppp$marks))
   list(
     cross.pcf.TS = pcfcross(all_ppp, i = "T", j = "S", r = r),
-    cross.pcf,TI = pcfcross(all_ppp, i = "T", j = "L", r = r),
+    cross.pcf.TI = pcfcross(all_ppp, i = "T", j = "L", r = r),
     cross.pcf.IS = pcfcross(all_ppp, i = "L", j = "S", r = r)
   )
 }
