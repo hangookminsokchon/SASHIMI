@@ -198,9 +198,6 @@ visual_point_pattern <- function(df,
 #' @param ... Additional parameters for specific functions (e.g., sector for K_sector)
 #' @return Invisible NULL (plots are generated as side effect)
 plot_spatial_features <- function(df_A, df_B, feature_type, r = NULL) {
-  # Reset plot setting
-  dev.off()
-
   # Source objects(functions) from src/functional_features.R
   # if doesn't work, use absolute path instead
   # ex) source("C:/Users/YourName/Documents/SASHIMI/src/functional_features.R")
