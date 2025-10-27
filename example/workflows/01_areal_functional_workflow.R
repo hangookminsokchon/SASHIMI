@@ -95,16 +95,17 @@ extracted_features <- plot_spatial_features(df_A, df_B, feature_type = "K_single
 # Computed features from df_A
 write.csv(extracted_features$dataset_A$single.K.T, file = 'appropriate output file path for areal features')
 write.csv(extracted_features$dataset_A$single.K.S, file = 'appropriate output file path for areal features')
-write.csv(extracted_features$dataset_A$single.K.L, file = 'appropriate output file path for areal features')
+write.csv(extracted_features$dataset_A$single.K.I, file = 'appropriate output file path for areal features')
 
 # Computed features from df_B
 write.csv(extracted_features$dataset_B$single.K.T, file = 'appropriate output file path for areal features')
 write.csv(extracted_features$dataset_B$single.K.S, file = 'appropriate output file path for areal features')
-write.csv(extracted_features$dataset_B$single.K.L, file = 'appropriate output file path for areal features')
+write.csv(extracted_features$dataset_B$single.K.I, file = 'appropriate output file path for areal features')
 
 
 # Download the areal feature data
-write.csv(areal_features, file = 'appropriate output file path for areal features') # Areal features are downloaded entirely 
+write.csv(areal_features_A, file = 'appropriate output file path for areal features') # Areal features are downloaded entirely 
+write.csv(areal_features_B, file = 'appropriate output file path for areal features') # Areal features are downloaded entirely 
 
 
 
