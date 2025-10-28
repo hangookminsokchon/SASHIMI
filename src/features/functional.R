@@ -60,10 +60,41 @@ K_single <- function(T, S, L, r = NULL) {
 #' @param r Numeric vector of distances.
 #' @return A list with `localK.T`, `localK.S`, `localK.I` (class `fv` or matrix).
 K_local <- function(T, S, L, r = NULL) {
+  
+  # Sample each point pattern independently
+  n_T <- npoints(T)
+  n_S <- npoints(S)
+  n_L <- npoints(L)
+  
+  # Calculate sample sizes
+  n_sample_T <- 5; n_sample_S <- 5; n_sample_L <- 5
+  
+  # Subsample each pattern
+  if (n_sample_T < n_T) {
+    sampled_indices_T <- sample(1:n_T, n_sample_T, replace = FALSE)
+    T_sampled <- T[sampled_indices_T]
+  } else {
+    T_sampled <- T 
+  }
+  
+  if (n_sample_S < n_S) {
+    sampled_indices_S <- sample(1:n_S, n_sample_S, replace = FALSE)
+    S_sampled <- S[sampled_indices_S]
+  } else {
+    S_sampled <- S
+  }
+  
+  if (n_sample_L < n_L) {
+    sampled_indices_L <- sample(1:n_L, n_sample_L, replace = FALSE)
+    L_sampled <- L[sampled_indices_L]
+  } else {
+    L_sampled <- L
+  }
+  
   list(
-    local.K.T = localK(T, r = r),
-    local.K.S = localK(S, r = r),
-    local.K.I = localK(L, r = r)
+    local.K.T = localK(T_sampled, r = r),
+    local.K.S = localK(S_sampled, r = r),
+    local.K.I = localK(L_sampled, r = r)
   )
 }
 
@@ -135,9 +166,40 @@ K_cross <- function(T, S, L, r = NULL) {
 #' @return A list with `localKcross.TS`, `localKcross.TI`, `localKcross.IS`.
 K_cross_local <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
+  
+  n_T <- npoints(T)
+  n_S <- npoints(S)
+  n_L <- npoints(L)
+  
+  # Calculate sample sizes
+  n_sample_T <- 5; n_sample_S <- 5; n_sample_L <- 5
+  
+  # Subsample each pattern
+  if (n_sample_T < n_T) {
+    sampled_indices_T <- sample(1:n_T, n_sample_T, replace = FALSE)
+    T <- T[sampled_indices_T]
+  } else {
+    T <- T 
+  }
+  
+  if (n_sample_S < n_S) {
+    sampled_indices_S <- sample(1:n_S, n_sample_S, replace = FALSE)
+    S <- S[sampled_indices_S]
+  } else {
+    S <- S
+  }
+  
+  if (n_sample_L < n_L) {
+    sampled_indices_L <- sample(1:n_L, n_sample_L, replace = FALSE)
+    L<- L[sampled_indices_L]
+  } else {
+    L <- L
+  }
+  
   all_ppp <- superimpose(T, S, L, W = T$window)
   all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
                  marks = factor(all_ppp$marks))
+  
   list(
     cross.local.K.TS = localKcross(all_ppp, i = "T", j = "S", r = r),
     cross.local.K.TI = localKcross(all_ppp, i = "T", j = "L", r = r),
@@ -335,6 +397,35 @@ I_cross <- function(T, S, L, r = NULL) {
 #' @return A list with `markconnect.TS`, `markconnect.TI`, `markconnect.IS`.
 MarkConnect_cross <- function(T, S, L, r = NULL) {
   marks(T) <- "T"; marks(S) <- "S"; marks(L) <- "L"
+  
+  n_T <- npoints(T)
+  n_S <- npoints(S)
+  n_L <- npoints(L)
+  
+  # Sample max(1000, npoints) points from each cell-type subset
+  n_sample_T <- 1000; n_sample_S <- 1000; n_sample_L <- 1000
+  
+  # Subsample each pattern
+  if (n_sample_T < n_T) {
+    sampled_indices_T <- sample(1:n_T, n_sample_T, replace = FALSE)
+    T <- T[sampled_indices_T]
+  } else {
+    T <- T 
+  }
+  
+  if (n_sample_S < n_S) {
+    sampled_indices_S <- sample(1:n_S, n_sample_S, replace = FALSE)
+    S <- S[sampled_indices_S]
+  } else {
+    S <- S
+  }
+  
+  if (n_sample_L < n_L) {
+    sampled_indices_L <- sample(1:n_L, n_sample_L, replace = FALSE)
+    L<- L[sampled_indices_L]
+  } else {
+    L <- L
+  }
   all_ppp <- superimpose(T, S, L, W = T$window)
   all_ppp <- ppp(all_ppp$x, all_ppp$y, window = all_ppp$window,
                  marks = factor(all_ppp$marks))
@@ -344,4 +435,3 @@ MarkConnect_cross <- function(T, S, L, r = NULL) {
     cross.markconnect.IS = markconnect(all_ppp, i = "L", j = "S", r = r)
   )
 }
-
