@@ -232,6 +232,60 @@ plot_spatial_features <- function(df_A, df_B, feature_type, r = NULL) {
   
   invisible(NULL)
 }
+
+#-------------------------------------------------------------------------------
+#' Extract spatial features to CSV files
+#' 
+#' Compute spatial summary statistics for two datasets and save to CSV files.
+#' 
+#' @param df_A First dataset (list with Tumor, Stromal, Immune ppp objects)
+#' @param df_B Second dataset (list with Tumor, Stromal, Immune ppp objects)
+#' @param feature_type Character string specifying which feature to compute
+#' @param output_dir Directory path where CSV files will be saved
+#' @param prefix Optional prefix for output filenames (default: feature_type)
+#' @param r Optional numeric vector of distances
+#' @param ... Additional parameters for specific functions
+#' @return List containing the computed features for both datasets
+extract_spatial_features <- function(df_A, df_B, feature_type, output_dir, 
+                                     prefix = NULL, r = NULL, ...) {
+  
+  # Use feature_type as prefix if not specified
+  if (is.null(prefix)) {
+    prefix <- feature_type
+  }
+  
+  # Create output directory if it doesn't exist
+  if (!dir.exists(output_dir)) {
+    dir.create(output_dir, recursive = TRUE)
+  }
+  
+  # Get the appropriate function
+  feature_func <- get(feature_type)
+  
+  # Compute features for both datasets
+  features_A <- feature_func(df_A$Tumor, df_A$Stromal, df_A$Immune, r = r, ...)
+  features_B <- feature_func(df_B$Tumor, df_B$Stromal, df_B$Immune, r = r, ...)
+  
+  # Extract and save each feature to CSV
+  for (i in 1:length(features_A)) {
+    feature_name <- names(features_A)[i]
+    
+    # Save dataset A features
+    filename_A <- file.path(output_dir, paste0(prefix, "_A_", feature_name, ".csv"))
+    write.csv(features_A[[i]], file = filename_A, row.names = FALSE)
+    
+    # Save dataset B features
+    filename_B <- file.path(output_dir, paste0(prefix, "_B_", feature_name, ".csv"))
+    write.csv(features_B[[i]], file = filename_B, row.names = FALSE)
+  }
+  
+  # Return the computed features for potential further use
+  return(list(
+    dataset_A = features_A,
+    dataset_B = features_B
+  ))
+}
+
 #-------------------------------------------------------------------------------
 #' Master Pipeline: Calculate Areal Features
 #'
