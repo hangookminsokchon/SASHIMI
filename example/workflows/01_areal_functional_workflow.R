@@ -87,21 +87,14 @@ plot_spatial_features(df_A, df_B, feature_type = "K_single")
 #' Download the functional and areal features of 'df' image in .csv format
 #' functional features return a list of functional data in 500 x n tabular data, whereas areal data returns a 1-row tabular data
 
-# Download the K-fucntion feature data
-# The same function introduced above, plot_spatial_features() also stores computed spatial summary statistics
-# enabling direct feature download by accessing stored data.
-extracted_features <- plot_spatial_features(df_A, df_B, feature_type = "K_single")
+# Example 1: Extract K-functions to CSV
+results <- extract_spatial_features(df_A, df_B, "K_single", 
+                                 output_dir = "output/K_functions")
 
-# Computed features from df_A
-write.csv(extracted_features$dataset_A$single.K.T, file = 'appropriate output file path for areal features')
-write.csv(extracted_features$dataset_A$single.K.S, file = 'appropriate output file path for areal features')
-write.csv(extracted_features$dataset_A$single.K.I, file = 'appropriate output file path for areal features')
-
-# Computed features from df_B
-write.csv(extracted_features$dataset_B$single.K.T, file = 'appropriate output file path for areal features')
-write.csv(extracted_features$dataset_B$single.K.S, file = 'appropriate output file path for areal features')
-write.csv(extracted_features$dataset_B$single.K.I, file = 'appropriate output file path for areal features')
-
+# Example 2: Extract J-functions with custom prefix
+results <- extract_spatial_features(df_A, df_B, "J_single", 
+                              output_dir = "output/features",
+                              prefix = "experiment1_J")
 
 # Download the areal feature data
 write.csv(areal_features_A, file = 'appropriate output file path for areal features') # Areal features are downloaded entirely 
