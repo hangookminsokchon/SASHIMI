@@ -2,14 +2,10 @@
 SASHIMI is a tool for capturing spatial cell-cell interactions in histopathology image using spatial summary statistics.
 
 ## Description
-**SASHIMI** is a web-based framework developed on R and Python for the extraction, vi-
-sualization, and computation of spatial features in AI-segmented histopathology images,
-enabling real-time analysis. The framework serves as an exploratory and feature-extraction
-tool, producing two types of outputs from marked point pattern data: (i) graphical visual-
-izations of functional statistics and (ii) scalar-valued indices. Functional outputs capture
-distance-based spatial dynamics (e.g., Ripley’s K-function, pair correlation function), while
-scalar outputs summarize spatial autocorrelation and similarity across tissue slides (e.g.,
-Moran’s I, Jaccard index, Summary statistics of persistence diagram).
+**SASHIMI** is a web-based framework developed in R and Python for extraction, visualization, and computation of spatial and topological features from AI-segmented histopathology images, enabling real-time analysis of tumor microenvironment structure. The framework serves as an exploratory and feature-extraction tool for marked point pattern data, producing two complementary types of outputs:
+(i) Functional features that capture distance-based spatial dynamics through classical point process statistics (Ripley's K-function, pair correlation function, nearest-neighbor distance distributions) and topological summaries via persistent homology computed on witness complexes, quantifying multi-scale geometric patterns in cell-type arrangements.
+(ii) Scalar-valued indices that summarize spatial autocorrelation (Moran's I), inter-slide similarity (Jaccard index), and topological signatures (persistence diagram summary statistics: persistence entropy, Betti numbers, landscape norms) to enable direct comparison across tissue samples.
+By integrating topological data analysis with spatial statistics, SASHIMI captures both first-order (clustering, dispersion) and higher-order (connectivity, voids, loop structures) spatial characteristics that conventional point process methods alone cannot detect, providing a comprehensive mathematical representation of tumor architecture for downstream survival analysis.
 
 ### Key Features
 
